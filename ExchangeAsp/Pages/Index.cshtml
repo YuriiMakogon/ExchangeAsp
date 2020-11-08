@@ -1,0 +1,92 @@
+﻿@page
+@model ExchangeAsp.Pages.Exchange.IndexModel
+@{
+}
+
+
+
+
+<form method="post">
+    <div class="form-group">
+        <div class="row">
+
+            <input asp-for="rates.Amount" class="col-lg-2" />
+            <select asp-for="rates.ToAmount" class="col-lg-2">
+                <option selected="selected" class="col-lg-2" value="">USD</option>
+                <option selected="selected" class="col-lg-2" value="">EUR</option>
+                <option selected="selected" class="col-lg-2" value="">GBP</option>
+                <option selected="selected" class="col-lg-2" value="">CHF</option>
+            </select>
+            <input type="submit" value="change" class="btn btn-dark"  asp-action="Change" />
+            <select asp-for="rates.ToCurrency" class="col-lg-2">
+                <option selected="selected" class="col-lg-2" value="">USD</option>
+                <option selected="selected" class="col-lg-2" value="">EUR</option>
+                <option selected="selected" class="col-lg-2" value="">GBP</option>
+                <option selected="selected" class="col-lg-2" value="">CHF</option>
+            </select>
+            <input type="text" asp-for="rates.converts"  class="col-lg-2" />
+        </div>
+        
+        </div>
+        <div class="row">
+            <input type="submit" value="Submit" class="btn btn-dark" asp-action="Index"  />
+         
+        </div>
+</form>
+
+
+
+<div class="col-12 border p-3 mt-3">
+
+    <form method="post">
+        @if (Model.Rates.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        <label asp-for="Rates.FirstOrDefault().Amount"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Rates.FirstOrDefault().ToAmount"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Rates.FirstOrDefault().converts"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Rates.FirstOrDefault().ToCurrency"></label>
+                    </th>
+                    <th>
+                        <label asp-for="Rates.FirstOrDefault().date"></label>
+                    </th>
+                </tr>
+                @foreach (var item in Model.Rates)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.ToAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.converts)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.ToCurrency)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => item.date)
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>No Exchange</p>
+        }
+
+    </form>
+</div>
+    
